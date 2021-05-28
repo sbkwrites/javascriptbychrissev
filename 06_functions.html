@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <style>
+        body {padding : 30px}
+    </style>
+
+</head>
+<body>
+
+  <div class="jumbotron text-center">
+    <button type="button" class="btn btn-danger" onclick="sayMessage('Hey you clicked btn 1')"> Click </button>
+    <button type="button" class="btn btn-danger" onclick="sayMessage('Hey you clicked btn 1')"> Button</button>
+    </div>
+
+    
+
+  <script>
+      function sayMessage(message = 'goodbye', whisper=false)
+      {
+ 
+        if(whisper){
+            console.log(`%c${message}`, 'font-size:5px');
+        }else{
+            console.log(message);
+        }
+      }
+      
+      const squared = (a) => {
+          return a * a;
+      };
+
+      const otherSquared = squared;
+
+    </script>
+
+</body>
+</html>

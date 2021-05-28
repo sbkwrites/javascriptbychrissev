@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <style>
+        body,.jumbotron  {
+            padding : 30px;
+        }
+        .text-right {
+            font-size: 40px;
+        }
+    </style>
+    <title>Calculator</title>
+</head>
+<body>
+
+
+    <!----.jumbotron>h2 -->
+    <div class="jumbotron">
+        <h2> How much do pies cost?</h2>
+
+        <form >
+            <div class="form-group">
+                <label for ="price">Price</label>
+                <input type = "text" class="form-control" name="price" value="">
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Quantity
+
+                    <span class="label label-primary quantity-label"> 1 </span>
+                </label>
+                <input type="range" class ="form-control" name="quantity" value="1"
+                min="1" max="100" step ="1">
+            </div>
+            <div class="text-right text-giant total">
+               
+            </div>
+
+        </form>
+      
+    </div>
+    
+
+
+
+
+    <!--------  JAVA SCRIPT -->
+    <script>
+
+        //Inputs
+        const priceInput = document.querySelector('[name=price]');
+        const quantityInput = document.querySelector('[name=quantity]');
+        const total = document.querySelector('.total');
+        const quantityLabel = document.querySelector('.quantity-label');
+    
+        //functions
+        function getPiesCost(){
+            const price = priceInput.value;
+            const quantity = quantityInput.value;
+            const cost = price * quantity;
+        
+            total.innerText = '$ ' + cost.toFixed(2);
+            
+        }
+        
+        function changeQuantity(){
+            const quantity = quantityInput.value;
+           quantityLabel.innerText = quantityInput.value;
+        }
+
+
+
+        //On window
+        getPiesCost();
+        
+    
+
+
+        //Listeners
+
+        priceInput.addEventListener('input', getPiesCost);
+        quantityInput.addEventListener('input', getPiesCost);
+        quantityInput.addEventListener('input', changeQuantity);
+
+
+
+
+
+    </script>
+
+</body>
+</html>
