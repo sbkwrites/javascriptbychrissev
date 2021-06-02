@@ -172,7 +172,7 @@
         const bookmarkForm = document.querySelector(".bookmark-form");
         const bookmarkInput = bookmarkForm.querySelector('input[type=text]');
 
-        const bookmarks = JSON.parse(localStorage.getItems('bookmarks')) || [];
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
         fillBookmarksList(bookmarks);
     
 
