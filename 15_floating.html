@@ -79,17 +79,20 @@
        .bookmark-list {
            position: relative;
            z-index: 9;
+           
        }
 
 
        .bookmark{
+           margin : 10px;
            display: block;
            background: #FFF;
            color: #999;
            padding: 30px;
            transition: 0.3s ease all;
            border-bottom: 1px solid #DDD;
-            font-size : 16px
+           font-size : 16px;
+           border-radius: 6px;
        }
        
        .bookmark:hover {
@@ -169,23 +172,59 @@
         const bookmarkForm = document.querySelector(".bookmark-form");
         const bookmarkInput = bookmarkForm.querySelector('input[type=text]');
 
+        const bookmarks = JSON.parse(localStorage.getItems('bookmarks')) || [];
+        fillBookmarksList(bookmarks);
+    
+
+
+
+
         function createBookmark(e){
             e.preventDefault();
 
             const title = bookmarkInput.value;
-            const bookmark =document.createElement('a');
-            bookmark.className = 'bookmark';
-            bookmark.innerText = title;
-            bookmark.href = '#';
-            bookmark.target = '_blank';
+            const bookmark = { title: title}
+            
+            bookmarks.push(bookmark);
+           
+            storeBookmarks(bookmarks);
+           
+            //console.table(bookmarks);
 
-            bookmarksList.appendChild(bookmark);
+            //add new bookmark
+
+
+            //save it to new bookmark to local storage.
+
+            // const title = bookmarkInput.value;
+            // const bookmark =document.createElement('a');
+            // bookmark.className = 'bookmark';
+            // bookmark.innerText = title;
+            // bookmark.href = '#';
+            // bookmark.target = '_blank';
+
+            // bookmarksList.appendChild(bookmark);
             
             bookmarkForm.reset();
            // console.log(bookmark);
         }
 
+        function fillBookmarksList(bookmarks = []){
+            //create html for bookmarks
+            const bookmarksHtml = bookmarks.map((bookmark)=>{
+            return `<a href="#" class="bookmark">
+                ${bookmark.title}
+                </a>`;
+            }).join('');
 
+
+            bookmarksHtml.innerHTML = bookmarksHtml;
+        }
+
+        function storeBookmarks(bookmarks = []){
+            localStorage.setItem('bookmarks',JSON.stringify(bookmarks));
+
+        }
 
 
         bookmarkForm.addEventListener('submit',createBookmark);
