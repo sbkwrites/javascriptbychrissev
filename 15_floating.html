@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample Site</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+   // <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
    <style>
        body {
            padding: 30px;
@@ -84,15 +85,16 @@
 
 
        .bookmark{
-           margin : 10px;
-           display: block;
+           margin : 5px;
+           display: flex;
            background: #FFF;
            color: #999;
-           padding: 30px;
+           padding: 10px;
            transition: 0.3s ease all;
            border-bottom: 1px solid #DDD;
            font-size : 16px;
            border-radius: 6px;
+           position: relative;
        }
        
        .bookmark:hover {
@@ -100,7 +102,7 @@
             text-decoration: none;
        }
 
-       /* .bookmark:first-child {
+       .bookmark:first-child {
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
        }
@@ -110,9 +112,39 @@
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
         border-bottom : 0;
-       } */
+       }
 
-    
+       .bookmark .img{
+            background-color : #DDD;
+            border-radius : 3px;
+            background-image: url('https://pbs.twimg.com/profile_images/1313796891478429696/ixKRGvS-_400x400.jpg');
+            background-size : cover;
+            width: 80px;
+            height: 60px;
+            margin-right: 20px;
+       }
+       .bookmark .title {
+           display: flex;
+           align-items : center;
+
+       }
+       
+       .bookmark .glyphicon-remove{
+           position: absolute;
+           top: 10px ;
+           right: 10px;
+           margin-right: 10px;
+           color : #AAA;
+           font-size: 12px;
+           transition: 0.3s ease color;
+           cursor : pointer;
+       }
+
+       .bookmark:hover .glyphicon-remove{
+       
+           color : rgb(212, 0, 0) ;
+          
+       }
 
    </style>
 
@@ -186,7 +218,7 @@
             const bookmark = { title: title}
             
             bookmarks.push(bookmark);
-           
+            fillBookmarksList(bookmarks);
             storeBookmarks(bookmarks);
            
             //console.table(bookmarks);
@@ -211,14 +243,17 @@
 
         function fillBookmarksList(bookmarks = []){
             //create html for bookmarks
-            const bookmarksHtml = bookmarks.map((bookmark)=>{
-            return `<a href="#" class="bookmark">
-                ${bookmark.title}
+            const bookmarksHtml = bookmarks.map(
+                (bookmark,i)=>{
+            return `<a href="#" class="bookmark" data-id="${i}">
+                <div class="img"></div>
+                <div class="title">${bookmark.title}</div>
+                <span class="glyphicon glyphicon-remove"></span>
                 </a>`;
             }).join('');
 
 
-            bookmarksHtml.innerHTML = bookmarksHtml;
+            bookmarksList.innerHTML = bookmarksHtml;
         }
 
         function storeBookmarks(bookmarks = []){
@@ -226,9 +261,26 @@
 
         }
 
+        function removeBookmark(e){
+
+           // console.log(e);
+            const index = e.target.parentNode.dataset.id;
+            bookmarks.splice(index, 1);
+            fillBookmarksList(bookmarks);
+            storeBookmarks(bookmarks);
+            if(!e.target.matches('.glyphicon-remove')){
+                return;
+            }
+
+            //  find the index
+            //  Remove
+            //  Fill
+            //  Store
+        }
+
 
         bookmarkForm.addEventListener('submit',createBookmark);
-
+        bookmarksList.addEventListener('click', removeBookmark);
     </script>
 </body>
 </html>
