@@ -203,6 +203,17 @@
         const bookmarksList = document.querySelector(".bookmarks-list");
         const bookmarkForm = document.querySelector(".bookmark-form");
         const bookmarkInput = bookmarkForm.querySelector('input[type=text]');
+        const apiUrl = 'https://opengraph.io/api/1.0/site';
+        const appId = '58858c7bcf07b61e64257391';
+
+        const url = encodeURIComponent(bookmarkInput.value);
+
+
+        
+            
+
+
+
 
         const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
         fillBookmarksList(bookmarks);
@@ -214,12 +225,28 @@
         function createBookmark(e){
             e.preventDefault();
 
-            const title = bookmarkInput.value;
-            const bookmark = { title: title}
+            fetch(`${apiUrl}/${url}?appId=${appId}`)
+            .then(response => response.json())
+            .then(data =>{
+                    console.log(data.hybridGraph.title);
+
+
+                    const title = bookmarkInput.value;
+            const bookmark = {
+                 title: data.hybridGraph.title,
+                image : data.hybridGraph.title,
+                link :  data.hybridGraph.url
+            };
             
             bookmarks.push(bookmark);
             fillBookmarksList(bookmarks);
             storeBookmarks(bookmarks);
+            bookmarkForm.reset();
+            });
+
+
+
+           
            
             //console.table(bookmarks);
 
@@ -237,7 +264,7 @@
 
             // bookmarksList.appendChild(bookmark);
             
-            bookmarkForm.reset();
+          
            // console.log(bookmark);
         }
 
